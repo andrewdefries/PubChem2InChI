@@ -1,6 +1,7 @@
 ##################
 library(ChemmineR)
 ##################
+system("sudo rm *.xls")
 files<-list.files(pattern="Compound.", recursive=F)
 ##################
 DoMyWork<-function(p){
@@ -9,6 +10,7 @@ sdfset<-read.SDFset(files[p])
 #########################
 desc <- function(sdfset) {
         cbind(SDFID=sdfid(sdfset), 
+              #datablocktag(sdfset, tag="PUBCHEM_COMPOUND_CID"),
               datablock2ma(datablocklist=datablock(sdfset))[,12:14]#, 
 ###############
               #MW=MW(sdfset), 
