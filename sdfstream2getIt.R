@@ -1,8 +1,8 @@
 ##################
 library(ChemmineR)
 ##################
-system("sudo rm *.xls")
-files<-list.files(pattern="Compound.", recursive=F)
+#system("sudo rm *.xls")
+files<-list.files(pattern="Compound*.sdf", recursive=F)
 ##################
 DoMyWork<-function(p){
 ###############
