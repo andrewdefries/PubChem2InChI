@@ -2,12 +2,26 @@
 library(ChemmineR)
 ##################
 #system("sudo rm *.xls")
+##system("./CleanAllSDFs.sh")
+##################
 files<-list.files(pattern="Compound*.sdf", recursive=F)
+##################
+
 ##################
 DoMyWork<-function(p){
 ###############
 sdfset<-read.SDFset(files[p])
-#########################
+##################
+###################
+sdfset
+valid <- validSDF(sdfset)
+sdfset <- sdfset[valid]
+apset<-sdf2ap(sdfset)
+sdfset<-sdfset[!sapply(as(apset,"list"),length)==1]
+sdfset
+###################
+conn=initDb("PubChemInChI.db")
+###################
 desc <- function(sdfset) {
         cbind(SDFID=sdfid(sdfset), 
               #datablocktag(sdfset, tag="PUBCHEM_COMPOUND_CID"),
@@ -30,4 +44,5 @@ sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".xls", sep="
 ###############
 p<-1:length(files)
 lapply(p, DoMyWork)
-
+###############
+unlink("PubChemInChI.db")
