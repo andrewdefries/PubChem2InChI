@@ -6,7 +6,9 @@ library(ChemmineR)
 ##################
 files<-list.files(pattern="Compound*.sdf", recursive=F)
 ##################
-
+conn=initDb("PubChemInChI.db")
+##################
+#Let's get started
 ##################
 DoMyWork<-function(p){
 ###############
@@ -20,7 +22,6 @@ apset<-sdf2ap(sdfset)
 sdfset<-sdfset[!sapply(as(apset,"list"),length)==1]
 sdfset
 ###################
-conn=initDb("PubChemInChI.db")
 ###################
 desc <- function(sdfset) {
         cbind(SDFID=sdfid(sdfset), 
@@ -45,4 +46,8 @@ sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".xls", sep="
 p<-1:length(files)
 lapply(p, DoMyWork)
 ###############
+#Check file size reload
+###############
 unlink("PubChemInChI.db")
+###############
+###############
