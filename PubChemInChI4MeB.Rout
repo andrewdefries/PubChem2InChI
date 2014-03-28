@@ -1,0 +1,79 @@
+
+R version 3.0.3 (2014-03-06) -- "Warm Puppy"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> library(RSQLite)
+Loading required package: DBI
+> 
+> files<-list.files(pattern=".sdf", recursive=F)
+> 
+> p<-1
+> InChIxls<-list.files(pattern=".csv", recursive=F)
+> ##
+> table<-read.csv(InChIxls[p], header=T, sep="\t")
+> #table<-read.delim(InChIxls[p], row.names=1)
+> #
+> TableName<-gsub(".sdf", "", files[p])
+> ###
+> #dbWriteTable(conn=db, name=TableName, value=table, row.names=TRUE, header=TRUE, eol="\n") ##, field.types=field.types, eol="\n")
+> ####
+> #dbDisconnect(db)
+> 
+> 
+> 
+> #load table dataTable
+> 
+> dataTable<-data.frame(table, header=T)
+> 
+> con <- dbConnect(SQLite(), dbname="PubChemInChI.sqlite")
+> #open con
+> 
+> colnames(dataTable) <- c("CID", "SDFlineStart", "SDFlineEnd", "PCID", "PubchemIUPAC", "PubchemIUPAC_InChI", "PubchemIUPAC_InChIKey")
+> 
+> 
+> #dbSendQuery(conn = con,
+> #       "CREATE TABLE PubChemInChI
+> #       (CID INTEGER,
+> #        SDFlineStart INTEGER,
+> #	SDFlineEnd  INTEGER,
+> #	PCID INTEGER,
+> #	PubchemIUPAC CHARACTER, 
+> #	PubchemIUPAC_InChI CHARACTER, 
+> #	PubchemIUPAC_InChIKey CHARACTER)")
+> 
+> #con <- slot(database, "database")
+> 
+> sql <- paste("INSERT INTO PubChemInChI VALUES ($CID, $SDFlineStart, $SDFlineEnd, $PCID, $PubchemIUPAC, $PubchemIUPAC_InChI, $PubchemIUPAC_InChIKey)", sep="")
+> 
+> dbBeginTransaction(con)
+[1] TRUE
+> 
+> dbGetPreparedQuery(con, sql, bind.data = dataTable)
+NULL
+> 
+> dbCommit(con)
+[1] TRUE
+> 
+> dbDisconnect(con)
+[1] TRUE
+> 
+> proc.time()
+   user  system elapsed 
+  0.384   0.032   0.413 

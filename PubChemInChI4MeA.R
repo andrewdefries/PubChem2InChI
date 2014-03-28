@@ -32,17 +32,7 @@ sdfset
        )
 }
 ########################
-sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".csv", sep=""), fct=desc, Nlines=1750)
+sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".csv", sep=""), fct=desc, Nlines=6500)
 
 
 
-InChIxls<-list.files(pattern=".csv", recursive=F)
-##
-table<-read.csv(InChIxls[p], header=T, sep="\t")
-#table<-read.delim(InChIxls[p], row.names=1)
-#
-TableName<-gsub(".sdf", "", files[p])
-###
-dbWriteTable(conn=db, name=TableName, value=table, row.names=TRUE, header=TRUE, eol="\n") ##, field.types=field.types, eol="\n")
-####
-dbDisconnect(db)

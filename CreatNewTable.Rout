@@ -17,15 +17,38 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> ##################
-> library("ChemmineR")
-> ##################
-> library("RSQLite")
-Loading required package: DBI
-> p<-1
-> files<-list.files(pattern=".sdf", recursive=F)
-> ##################
-> db <- dbConnect(SQLite(), dbname="PubChemInChI.sqlite")
-> sdfset<-read.SDFset(files[p])
+[Previously saved workspace restored]
 
-Execution halted
+> library(RSQLite)
+Loading required package: DBI
+> 
+> system("rm *.sqlite")
+> 
+> con <- dbConnect(SQLite(), dbname="PubChemInChI.sqlite")
+> 
+> dbSendQuery(conn = con,
++        "CREATE TABLE PubChemInChI
++        (CID INTEGER,
++         SDFlineStart INTEGER,
++         SDFlineEnd  INTEGER,
++         PCID INTEGER,
++         PubchemIUPAC CHARACTER,
++         PubchemIUPAC_InChI CHARACTER,
++         PubchemIUPAC_InChIKey CHARACTER)")
+<SQLiteResult: DBI RES (4019, 0, 1)> 
+> 
+> 
+> dbBeginTransaction(con)
+[1] TRUE
+> 
+> 
+> dbCommit(con)
+[1] TRUE
+> 
+> dbDisconnect(con)
+[1] TRUE
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  0.356   0.052   0.407 
