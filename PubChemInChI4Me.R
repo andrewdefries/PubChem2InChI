@@ -100,7 +100,8 @@ lapply(p, DoMyWork)
 #####
 InChIxls<-list.files(pattern=".csv", recursive=F)
 ##
-table<-read.csv(InChIxls[p], header=T, sep="\t")
+#table<-read.csv(InChIxls[p], header=T, sep="\t")
+table<-read.delim(InChIxls[p], row.names=1)[,1:4]
 #
 TableName<-gsub(".sdf", "", files[p])
 ###
