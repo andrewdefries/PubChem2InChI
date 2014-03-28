@@ -32,7 +32,7 @@ sdfset
        )
 }
 ########################
-sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".csv", sep=""), fct=desc, Nlines=1000)
+sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".csv", sep=""), fct=desc, Nlines=1750)
 
 
 
