@@ -35,7 +35,7 @@ Loading required package: DBI
 +         PubchemIUPAC CHARACTER,
 +         PubchemIUPAC_InChI CHARACTER,
 +         PubchemIUPAC_InChIKey CHARACTER)")
-<SQLiteResult: DBI RES (4019, 0, 1)> 
+<SQLiteResult: DBI RES (4926, 0, 1)> 
 > 
 > 
 > dbBeginTransaction(con)
@@ -51,4 +51,4 @@ Loading required package: DBI
 > 
 > proc.time()
    user  system elapsed 
-  0.356   0.052   0.407 
+  0.376   0.028   0.404 

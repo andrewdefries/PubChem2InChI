@@ -5,7 +5,6 @@ library("RSQLite")
 p<-1
 files<-list.files(pattern=".sdf", recursive=F)
 ##################
-db <- dbConnect(SQLite(), dbname="PubChemInChI.sqlite")
 sdfset<-read.SDFset(files[p])
 ##################
 ###################
@@ -17,6 +16,7 @@ sdfset <- sdfset[valid]
 apset<-sdf2ap(sdfset)
 sdfset<-sdfset[!sapply(as(apset,"list"),length)==1]
 sdfset
+write.SDF(sdfset, file=files[p], cid=F, sig=T)
 ###################
         cbind(SDFID=sdfid(sdfset),
 # datablocktag(sdfset, tag="PUBCHEM_COMPOUND_CID"),
@@ -32,7 +32,7 @@ sdfset
        )
 }
 ########################
-sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".csv", sep=""), fct=desc, Nlines=6500)
+sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".csv", sep=""), fct=desc, Nlines=10000)
 
 
 
