@@ -32,4 +32,4 @@ desc <- function(sdfset) {
        )
 }
 ########################
-sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".csv", sep=""), fct=desc, Nlines=25000)
+sdfStream(input=files[p], output=paste(gsub(".sdf", "", files[p]), ".csv", sep=""), fct=desc, Nlines=50000)
