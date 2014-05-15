@@ -3,8 +3,8 @@ rm RunLog
 
 #####
 #R CMD BATCH CreatNewTable.R
-##gsutil ls gs://pubchem/*.sdf | sed -n '1,235p' > WorkList0
-gsutil ls gs://pubchem/*.sdf | sed -n '236,470p' > WorkList
+gsutil ls gs://pubchem/*.sdf | sed -n '1,235p' > WorkList
+#gsutil ls gs://pubchem/*.sdf | sed -n '236,470p' > WorkList1
 #gsutil ls gs://pubchem/*.sdf | sed -n '471,705p' > WorkList2
 #gsutil ls gs://pubchem/*.sdf | sed -n '706,940p' > WorkList3
 #gsutil ls gs://pubchem/*.sdf | sed -n '941,1175p' > WorkList4
@@ -20,7 +20,8 @@ gsutil ls gs://pubchem/*.sdf | sed -n '236,470p' > WorkList
 
 
 ####
-filecontent=( `cat "WorkList"`)
+filecontent=(`cat "WorkList"`)
+Name=(`cat WorkList | sed 's/gs:\/\/pubchem\///g' | sed 's/\.sdf/.csv/g'`)
 ####
 for t in "${filecontent[@]}"
 ####
@@ -34,7 +35,10 @@ R CMD BATCH PubChemInChI4Me.R
 
 echo "$t is done with sdfstream"
 
-gsutil -m cp *.csv gs://swapmeet
+#ls *.csv | sed 's/\.sdf/.csv/g' > Out
+#Name=(`cat Out`)
+        
+gsutil -m cp "$Name" gs://swapmeet
 cat PubChemInChI4Me.Rout >> RunLog
 
 #R CMD BATCH PubChemInChI4MeB.R
@@ -51,3 +55,4 @@ echo "$t is done w gsutil cp"
 done
 ####
 #####
+
