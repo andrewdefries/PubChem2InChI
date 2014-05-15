@@ -14,7 +14,7 @@ sdfset <- sdfset[valid]
 apset<-sdf2ap(sdfset)
 sdfset<-sdfset[!sapply(as(apset,"list"),length)==1]
 #cid(sdfset)<-datablocktag(sdfset, tag="PUBCHEM_COMPOUND_CID")
-smiset<-sdf2smiles(sdfset)
+#smiset<-sdf2smiles(sdfset)
 ###################
 desc <- function(sdfset) {
 ###################
@@ -36,8 +36,8 @@ desc <- function(sdfset) {
               InChi=datablocktag(sdfset, tag="PUBCHEM_IUPAC_INCHI"),
               InChiKey=datablocktag(sdfset, tag="PUBCHEM_IUPAC_INCHIKEY"),
               OpenEyeCanSmiles=datablocktag(sdfset, tag="PUBCHEM_OPENEYE_CAN_SMILES"),
-              OpenEyeISOSmiles=datablocktag(sdfset,tag="PUBCHEM_OPENEYE_ISO_SMILES"),
-              BabelSmiles=as.vector(as.character(smiset[1:length(smiset)]))##[1:length(smiset)])    
+              OpenEyeISOSmiles=datablocktag(sdfset,tag="PUBCHEM_OPENEYE_ISO_SMILES")#,
+             ##BabelSmiles=as.vector(as.character(smiset[1:length(smiset)]))##[1:length(smiset)])    
               ##############
        )
 }
