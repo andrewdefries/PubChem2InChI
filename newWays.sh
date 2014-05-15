@@ -21,7 +21,7 @@ gsutil ls gs://pubchem/*.sdf | sed -n '1,235p' > WorkList
 
 ####
 filecontent=(`cat "WorkList"`)
-Name=(`cat WorkList | sed 's/gs:\/\/pubchem\///g' | sed 's/\.sdf/.csv/g'`)
+#Name=(`cat WorkList | sed 's/gs:\/\/pubchem\///g' | sed 's/\.sdf/.csv/g'`)
 ####
 for t in "${filecontent[@]}"
 ####
@@ -38,7 +38,7 @@ echo "$t is done with sdfstream"
 #ls *.csv | sed 's/\.sdf/.csv/g' > Out
 #Name=(`cat Out`)
         
-gsutil -m cp "$Name" gs://swapmeet
+gsutil -m cp *.csv gs://swapmeet
 cat PubChemInChI4Me.Rout >> RunLog
 
 #R CMD BATCH PubChemInChI4MeB.R
