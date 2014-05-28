@@ -15,7 +15,7 @@ echo "That is the number remaining"
 comm -3 Target Output > Remainder
 
 #Clean worklist to use as input
-cat Remainder | sed 's/gs:\/\/\//gs:\/\/pubchem/g' | sed 's/0$/0.sdf/g' > RemainderWorklist
+cat Remainder | sed 's/gs:\/\/\//gs:\/\/pubchem\//g' | sed 's/0$/0.sdf/g' > RemainderWorklist
 
 cat RemainderWorklist  | wc
 
