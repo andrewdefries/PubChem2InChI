@@ -1,3 +1,4 @@
+rm(list=ls())
 ###################
 library(RSQLite)
 library(ChemmineR)
@@ -23,6 +24,8 @@ dataTable<-data.frame(dataTable, header=T)
 #R style insert call
 sql <- paste("INSERT INTO PubChemInChI VALUES ($PCID, $PubchemIUPAC_InChIKey)", sep="")
 
+con <- dbConnect(SQLite(), dbname="PubChemInChI.sqlite")
+
 dbBeginTransaction(con)
 
 
@@ -32,7 +35,6 @@ dbCommit(con)
 
 dbDisconnect(con)
 
-con <- dbConnect(SQLite(), dbname="PubChemInChI.sqlite")
-result<-dbGetQuery(con,"SELECT PCID, * FROM PubChemInCHI LIMIT 2")
+####################
+rm(list=ls())
 
-dbDisconnect(con)
