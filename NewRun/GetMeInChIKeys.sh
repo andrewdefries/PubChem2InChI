@@ -30,4 +30,6 @@ cat *.Rout >> RunLog
 
 echo "done moving on" >> RunLog
 ################################
+echo "copy the sqlite db to a gs bucket"
+
 done
