@@ -5,11 +5,11 @@ library(ChemmineR)
 system("rm *.sqlite")
 
 ##create  a new db
-con <- dbConnect(SQLite(), dbname="PubChemInChI.sqlite")
+con <- dbConnect(SQLite(), dbname="PubChemInChIKey.sqlite")
 
 #make tables and specify data type
 dbSendQuery(conn = con,
-       "CREATE TABLE PubChemInChI
+       "CREATE TABLE PubChemInChIKey
         (PCID INTEGER,
         PubchemIUPAC_InChIKey CHARACTER)")
 
