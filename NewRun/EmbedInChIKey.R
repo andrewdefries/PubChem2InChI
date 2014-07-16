@@ -22,9 +22,9 @@ colnames(dataTable)<-c("PCID", "PubchemIUPAC_InChIKey")
 dataTable<-data.frame(dataTable, header=T)
 
 #R style insert call
-sql <- paste("INSERT INTO PubChemInChI VALUES ($PCID, $PubchemIUPAC_InChIKey)", sep="")
+sql <- paste("INSERT INTO PubChemInChIKey VALUES ($PCID, $PubchemIUPAC_InChIKey)", sep="")
 
-con <- dbConnect(SQLite(), dbname="PubChemInChI.sqlite")
+con <- dbConnect(SQLite(), dbname="PubChemInChIKey.sqlite")
 
 dbBeginTransaction(con)
 
